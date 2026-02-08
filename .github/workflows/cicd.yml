@@ -1,32 +1,32 @@
 name: TODO-LIST
 
-on : 
-    push :
-          branches :
-                    - main
+on:
+  push:
+    branches:
+      - main
 
-jobs :
-      build-deploy :
-              runs-on: ubuntu-latest
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
 
-              steps: 
-                    #checkout teh repo
-                    -name : Checkout Code
-                    uses : actions/checkout@v6.0.2
+    steps:
+      # Checkout the repo
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-                    -name : Setup Node.js
-                    uses : actions/setup-node@v6.2.0
-                    with: 
-                        node-version: 18
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-                    -name : Install Dependencies
-                    run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-                    -name : Build Project
-                    run: npm run build
+      - name: Build Project
+        run: npm run build
 
-                    -name : Deploy To Github Pages
-                    uses: peaceiris/actions-gh-pages@v4
-                    with:
-                      github_token: ${{ secrets.GITHUB_TOKEN }}
-                      publish_dir: dist
+      - name: Deploy To GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
